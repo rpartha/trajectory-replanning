@@ -2,119 +2,112 @@ import java.util.ArrayList;
 
 public class MinHeap{
 
-    // our heap has a branching factor of 2 //
-
-    private static int idx = 0; //heap index
-    public Node[] heap;
+    private int size;
+    private ArrayList<Node> heap;
 
     public MinHeap(){
-        heap = new Node[5000]; //doesn't matter if it's hard-coded for now
+        this.heap = new ArrayList<Node>();
+        this.size = -1;
+        constructHeap();
     }
 
-    /* insert element into heap */
+    public void constructHeap(){
+        if(this.heap.size() > 1){
+            for(int i = this.heap.size()/2; i >= 0; --i){
+                heapify(i);
+            }
+        }
+    }
+
+    /* rearrange heap to maintain heap structure */
+    private void heapify(int k){
+        int l = (2*k) + 1; //left child
+        int r = (2*k) + 2; //right child
+
+        int min = k;
+
+        if(l <= this.size){
+            if(this.heap.get(l).getF() == this.heap.get(k).getF()){
+                if(this.heap.get(l).getG() < this.heap.get(k).getG()){
+                    min = l;
+                } else{
+                    min = k;
+                }
+            }
+
+            else if(this.heap.get(l).getF() < this.heap.get(k).getF()){
+                min = l;
+            } 
+        
+            else{
+                min = k;
+            }
+        } 
+
+        if(r <= this.size){
+            if(this.heap.get(r).getF() == this.heap.get(min).getF()){
+                if(this.heap.get(r).getG() < this.heap.get(min).getG()){
+                    min = r;
+                }
+            }
+
+            if(this.heap.get(r).getF() < this.heap.get(min).getF()){
+                min = r;
+            } 
+        }
+
+        if(min != k){
+            swap(min, k);
+            heapify(min);
+        }
+    }
+
+    /* swap values in heap */
+    private void swap(int a, int b){
+        Node t = this.heap.get(a);
+        this.heap.set(a, this.heap.get(b));
+		this.heap.set(b, t);
+    }
+
+    /* insert element into  heap */
     public void insert(Node x){
-        heap[++idx] = x;
-        siftUp(idx);
+       this.heap.add(x);
+       this.size++;
+       constructHeap();
     }
     
     /* remove element from heap */
-    public void delete(int x){
-        heap[x] = heap[idx];
-        idx--;
-        siftUp(x);
-        siftDown(x);
-    }
-
-    private void siftUp(int k){
-        int p = k/2;
-        Node nk = heap[k];
-
-        if(k > 1 && nk.getF() < heap[p].getF()){
-            while(k > 1 && nk.getG() > heap[p].getG()){
-                heap[k] = heap[p];
-                k = p;
-                p = k/2;
+    public Node delete(int k){
+        try{
+            if(this.size < 0){
+                throw new IndexOutOfBoundsException("Index out of bounds");
             }
+        } catch(IndexOutOfBoundsException e){
+            e.printStackTrace();
         }
 
-        while(k > 1 && nk.getF() < heap[p].getF()){
-             heap[k] = heap[p];
-             k = p;
-             p = k/2;
-        }
+        Node s = this.heap.get(0);
 
-        heap[k] = nk;
+        this.heap.set(0, this.heap.get(this.size));
+		this.heap.remove(this.size);
+		this.size--;
+
+		heapify(0);
+
+		return s;
     }
 
-    private void siftDown(int k){
-        int left = 2*k;
-        int right = (2*k) + 1;
+    public void print(){
+		for(Node n: heap){
+			System.out.println(n.getX() + ", " + n.getY());
+		}
+	}
 
-        Node nk = heap[k];
-
-        while(left <= idx){
-            if(right <= idx){
-                if((nk.getF() > heap[right].getF()) && (heap[left].getF() > heap[right].getF())){
-                    heap[k] = heap[right];
-                    k = right;
-                }
-
-                else if((nk.getF() > heap[left].getF()) && (heap[right].getF() > heap[left].getF())){
-                    heap[k] = heap[left];
-                    k = left;
-                }
-
-                else{
-                    break;
-                }
-            }
-
-            else if(nk.getF() > heap[left].getF()){
-                heap[k] = heap[left];
-                k = left;
-            }
-
-            else{
-                break;
-            }
-
-            left = 2*k;
-            right = (2*k) + 1;
-        }
-
-        heap[k] = nk;
-    }
-
-    /*private int swap(int a, int b){
-        int t = a;
-        a = b;
-        b = t;
-    }*/
-
-    public void reset(){
-        idx = 0;
-    }
-
-    public int contains(Node n){
-        int j = 0;
-
-        if(isEmpty()){
-            return -1;
-        }
-
-        else{
-            for(int i = 0; i <= idx; i++){
-                if((heap[i].getX() == n.getX()) && (heap[i].getY() == n.getY())){
-                    j = i;
-                    break;
-                }
-            }
-        }
-        
-        return j;
-    }
-
-    public boolean isEmpty(){
-        return ((idx == 0) ? true : false);
-    }
+	/*public static void main(String[] args){
+		MinHeap bh = new MinHeap();
+		bh.insert(new Node(3, 5, Integer.MAX_VALUE, 0));
+		bh.print();
+        //bh.delete(0);
+        //bh.print();
+	}*/
 }
