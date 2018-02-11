@@ -69,6 +69,10 @@ public class MinHeap{
 		this.heap.set(b, t);
     }
 
+    public Node peek(){
+        return this.heap.get(0);
+    }
+
     /* insert element into  heap */
     public void insert(Node x){
        this.heap.add(x);
@@ -76,8 +80,8 @@ public class MinHeap{
        constructHeap();
     }
     
-    /* remove element from heap */
-    public Node delete(int k){
+    /* extracts min index from heap */
+    public Node delete(){
         try{
             if(this.size < 0){
                 throw new IndexOutOfBoundsException("Index out of bounds");
@@ -106,7 +110,12 @@ public class MinHeap{
 	/*public static void main(String[] args){
 		MinHeap bh = new MinHeap();
 		bh.insert(new Node(3, 5, Integer.MAX_VALUE, 0));
-		bh.print();
+		//bh.print();
+        bh.insert(new Node(6, 8, 55, 10));
+        bh.insert(new Node(1, 2, 22, 5));
+        bh.insert(new Node(0, 0, 15, 2));
+        bh.delete();
+        bh.print();
         //bh.delete(0);
         //bh.print();
 	}*/
