@@ -6,22 +6,30 @@ public class Node implements Comparable<Node>{
     private int x, y;
     private int f, g, h;
     //private boolean start, goal;
-    private boolean visited;
+    private boolean visited, blocked;
 
-    private Node parent;
+    private Node parent, child;
 
     //private ArrayList<Node> openList; //neighbors
 
     public Node(int x, int y, int g, int h){
         this.parent = null;
+        this.child = null;
         this.x = x;
         this.y = y;
         this.g = g;
         this.h = h;
+        this.f = 0;
+        this.blocked = false;
     }
 
+    public Node(int x, int y, boolean blocked){
+    	this.x = x;
+    	this.y = y;
+    	this.blocked = blocked;
+    }
     public int getX(){
-        return x;
+        return this.x;
     }
 
     public void setX(int x){
@@ -29,27 +37,27 @@ public class Node implements Comparable<Node>{
     }
 
     public int getY(){
-        return y;
+        return this.y;
     }
 
-    public void setY(int x){
+    public void setY(int y){
         this.y = y;
     }
 
     /*public int getF(){
         return f;
-    }*
-
+    }*/
+    
     public void setF(int f){
         this.f = f;
-    }*/
+    }
 
     public int getF(){
-        return g + h;
+        return this.f;
     }
 
     public int getG(){
-        return g;
+        return this.g;
     }
 
     public void setG(int g){
@@ -57,7 +65,7 @@ public class Node implements Comparable<Node>{
     }
 
     public int getH(){
-        return h;
+        return this.h;
     }
 
     public void setH(int h){
@@ -73,17 +81,31 @@ public class Node implements Comparable<Node>{
     }
 
     public Node getParent(){
-        return parent;
+        return this.parent;
     }
 
     public void setParent(Node parent){
         this.parent = parent;
     }
+    
+    public void setChild(Node child){
+    	this.child = child;
+    }
+    
+    public Node getChild(){
+    	return this.child;
+    }
+    
+    public void setBlocked(boolean b){
+    	this.blocked = b;
+    }
 
+    public boolean getBlocked(){
+    	return this.blocked;
+    }
     /*public ArrayList<Node> getOpenList(){
         return openList;
     }
-
     public void setOpenList(ArrayList<Node> openList){
         this.openList = openList;
     }*/
@@ -106,4 +128,5 @@ public class Node implements Comparable<Node>{
 
         return false;
     }
+  
 }

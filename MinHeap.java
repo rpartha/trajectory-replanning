@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class MinHeap{
 
     private int size;
-    private ArrayList<Node> heap;
+    public ArrayList<Node> heap;
 
     public MinHeap(){
         this.heap = new ArrayList<Node>();
@@ -13,7 +13,7 @@ public class MinHeap{
 
     public void constructHeap(){
         if(this.heap.size() > 1){
-            for(int i = this.heap.size()/2; i >= 0; --i){
+            for(int i = this.heap.size()/2; i >= 0; i--){
                 heapify(i);
             }
         }
@@ -107,16 +107,34 @@ public class MinHeap{
 		}
 	}
 
-	/*public static void main(String[] args){
+	public static void main(String[] args){
 		MinHeap bh = new MinHeap();
-		bh.insert(new Node(3, 5, Integer.MAX_VALUE, 0));
-		//bh.print();
-        bh.insert(new Node(6, 8, 55, 10));
-        bh.insert(new Node(1, 2, 22, 5));
-        bh.insert(new Node(0, 0, 15, 2));
+		Node node1 = new Node(3, 5, 0, 11);
+		Node node2 = new Node(6,8,0,2);
+		Node node3 = new Node(1,2,0,3);
+		Node node4 = new Node(0,0,0,1);
+		node1.setF(11);
+		node2.setF(2);
+		node3.setF(3);
+		node4.setF(1);
+		
+		bh.insert(node1);
+        bh.insert(node2);
+        bh.insert(node3);
+        bh.insert(node4);
         bh.delete();
         bh.print();
+        System.out.println("-----------");
+        bh.delete();
+        bh.print();
+        System.out.println("-----------");
+        bh.delete();
+        bh.print();
+        System.out.println("-----------");
+        bh.delete();
+        bh.print();
+        System.out.println("-----------");
         //bh.delete(0);
         //bh.print();
-	}*/
+	}
 }
