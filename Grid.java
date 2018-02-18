@@ -16,7 +16,13 @@ public class Grid {
 					array[i][j] = new Node(i, j, false);
 				}
 				else {
-					array[i][j] = new Node(i, j, random.nextBoolean());
+					int rand = random.nextInt(99);
+					if(rand < 30){
+						array[i][j] = new Node(i, j, true);
+					}
+					else {
+						array[i][j] = new Node(i, j, false);
+					}
 				}
 			}
 		}

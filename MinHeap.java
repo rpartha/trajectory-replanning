@@ -107,16 +107,16 @@ public class MinHeap{
 		}
 	}
 
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		MinHeap bh = new MinHeap();
 		Node node1 = new Node(3, 5, 0, 11);
 		Node node2 = new Node(6,8,0,2);
 		Node node3 = new Node(1,2,0,3);
 		Node node4 = new Node(0,0,0,1);
-		node1.setF(11);
-		node2.setF(2);
-		node3.setF(3);
-		node4.setF(1);
+		node1.setF(100);
+		node2.setF(1000);
+		node3.setF(10000);
+		node4.setF(2);
 		
 		bh.insert(node1);
         bh.insert(node2);
@@ -136,5 +136,5 @@ public class MinHeap{
         System.out.println("-----------");
         //bh.delete(0);
         //bh.print();
-	}
+	}*/
 }

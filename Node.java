@@ -109,7 +109,6 @@ public class Node implements Comparable<Node>{
     public void setOpenList(ArrayList<Node> openList){
         this.openList = openList;
     }*/
-
     @Override
     public int compareTo(Node other) {
     	if(getF() == other.getF()){
