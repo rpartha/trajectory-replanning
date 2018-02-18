@@ -342,94 +342,95 @@ public class RepeatedAStar{
 		//Actually traversing the grid
 		while(true){
 			for(i = 0; i < plannedRoute.size(); i++){
-				if(plannedRoute.get(i).getX() -1 < 0 && plannedRoute.get(i).getY()-1 < 0){
-					if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
+				if(!plannedRoute.get(i).getBlocked()){
+					if(plannedRoute.get(i).getX() -1 < 0 && plannedRoute.get(i).getY()-1 < 0){
+						if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
+						}
 					}
-					if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
-						blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
+					else if(plannedRoute.get(i).getX()+1 > 9 && plannedRoute.get(i).getY() + 1 > 9){
+						if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
+						}
+					}
+					else if(plannedRoute.get(i).getX()-1 < 0 && plannedRoute.get(i).getY()+1 > 9){
+						if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
+						}
+					}
+					else if(plannedRoute.get(i).getX()+1 > 9 && plannedRoute.get(i).getY()-1 < 0){
+						if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
+						}
+					}
+					else if(plannedRoute.get(i).getX()-1 < 0 && plannedRoute.get(i).getY()-1 >= 0){
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
+						}
+					}
+					else if(plannedRoute.get(i).getX()-1 >= 0 && plannedRoute.get(i).getY()-1 < 0){
+						if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
+						}
+					}
+					else if(plannedRoute.get(i).getX()+1 > 9 && plannedRoute.get(i).getY() + 1 <= 9){
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
+						}
+					}
+					else if(plannedRoute.get(i).getX()+1 <=9 && plannedRoute.get(i).getY()+1 > 9){
+						if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
+						}
+					}
+					else {
+						if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
+							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
+						}
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
+						}
 					}
 				}
-				else if(plannedRoute.get(i).getX()+1 > 9 && plannedRoute.get(i).getY() + 1 > 9){
-					if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
-						blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
-					}
-				}
-				else if(plannedRoute.get(i).getX()-1 < 0 && plannedRoute.get(i).getY()+1 > 9){
-					if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
-						blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
-					}
-				}
-				else if(plannedRoute.get(i).getX()+1 > 9 && plannedRoute.get(i).getY()-1 < 0){
-					if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
-						blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
-					}
-				}
-				else if(plannedRoute.get(i).getX()-1 < 0 && plannedRoute.get(i).getY()-1 >= 0){
-					if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
-						blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
-						blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
-					}
-				}
-				else if(plannedRoute.get(i).getX()-1 >= 0 && plannedRoute.get(i).getY()-1 < 0){
-					if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
-						blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
-					}
-				}
-				else if(plannedRoute.get(i).getX()+1 > 9 && plannedRoute.get(i).getY() + 1 <= 9){
-					if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
-						blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
-						blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
-					}
-				}
-				else if(plannedRoute.get(i).getX()+1 <=9 && plannedRoute.get(i).getY()+1 > 9){
-					if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
-						blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
-					}
-				}
-				else {
-					if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
-						blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
-					}
-					if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
-						blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
-					}
-				}
-				
 				if(plannedRoute.get(i).getBlocked()){
 					blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()] = 1;
 					ranIntoBlock = true;
@@ -447,6 +448,7 @@ public class RepeatedAStar{
 				//System.out.println("blah2");
 				plannedRoute = planning(plannedRoute.get(i-1),isForward, blocked);
 			}
+			ranIntoBlock = false;
 			//System.out.println("After second planned route");
 			if(plannedRoute == null){
 				return null;
