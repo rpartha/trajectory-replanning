@@ -7,8 +7,8 @@ public class Grid {
 	Node[][] array;
 	public Grid(){
 		array = new Node[10][10];
-		for(int i = 0; i < 10; i++){
-			for(int j = 0; j < 10; j++){
+		for(int j = 0; j < 10; j++){
+			for(int i = 0; i < 10; i++){
 				if(i == 0 && j ==0){
 					array[i][j] = new Node(i, j, false);
 				}
@@ -30,9 +30,9 @@ public class Grid {
 	
 	public void printGrid(ArrayList<Node> path){
 		if(path == null){
-			for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++){
 				System.out.println();
-				for(int j = 0; j < 10; j++){
+				for(int i = 0; i < 10; i++){
 					if(array[i][j].getBlocked())
 						System.out.print("B ");
 					else

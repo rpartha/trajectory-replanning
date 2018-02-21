@@ -9,7 +9,7 @@ public class RepeatedAStar{
 	}
 
 	public static ArrayList<Node> planning(Node current, boolean isForward, int[][] blocked){
-		if(!isForward){
+		if(!isForward && current.getX() == 0 && current.getY() == 0){
 			current.setX(9);	
 			current.setY(9);
 		}
@@ -21,7 +21,7 @@ public class RepeatedAStar{
 		Node rightNeighbor = new Node(0,0,0,0);
 		Node start = new Node(current.getX(),current.getY(),current.getG(),current.getH());
 		Node dest = new Node(9,9,0,0);
-		Node root = new Node(0,0,0,0);
+		Node root = new Node(current.getX(),current.getY(),current.getG(),current.getH());
 		ArrayList<Node> plannedRoute = new ArrayList<Node>();
 		ArrayList<Node> closedList = new ArrayList<Node>();
 		ArrayList<Node> neighbors = new ArrayList<Node>();
@@ -183,6 +183,9 @@ public class RepeatedAStar{
 			}
 			plannedRoute.add(temp);
 			openList.heap.clear();
+			for(Node node : plannedRoute){
+				System.out.println("Planned Route(X , Y): " + node.getX() + " , " + node.getY());
+			}
 		}
 		else {
 			while(current.getX() != 0 && current.getY() != 0){
@@ -313,6 +316,8 @@ public class RepeatedAStar{
 	}
 	
 	public static ArrayList<Node> executePath(boolean isForward, Grid grid){
+		int count = 0;
+		ArrayList<Node> previousRoute = new ArrayList<Node>();
 		boolean ranIntoBlock = false;
 		int[][] blocked = new int[10][10]; //1 is blocked, 0 is unblocked
 		for(int i = 0; i < 10; i++){
@@ -326,10 +331,13 @@ public class RepeatedAStar{
 			current.setY(9);
 		}
 		ArrayList<Node> plannedRoute = planning(current, isForward, blocked);
+		if(plannedRoute == null){
+			return null;
+		}
 		//System.out.println("After first planned route");
 		//Initializing nodes of plannedRoute to Blocked or Unblocked
 		for(Node node : plannedRoute){
-			System.out.println("Planned Route(X , Y): " + node.getX() + " , " + node.getY());
+			//System.out.println("Planned Route(X , Y): " + node.getX() + " , " + node.getY());
 		}
 		for(int i = 0; i < plannedRoute.size(); i++){
 			if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()].getBlocked()){
@@ -341,6 +349,12 @@ public class RepeatedAStar{
 		
 		//Actually traversing the grid
 		while(true){
+			i = 0;
+			for(int k = 0; k < plannedRoute.size(); k++){
+				if(grid.array[plannedRoute.get(k).getX()][plannedRoute.get(k).getY()].getBlocked()){
+					plannedRoute.get(k).setBlocked(true);
+				}
+			}
 			for(i = 0; i < plannedRoute.size(); i++){
 				if(!plannedRoute.get(i).getBlocked()){
 					if(plannedRoute.get(i).getX() -1 < 0 && plannedRoute.get(i).getY()-1 < 0){
@@ -429,12 +443,27 @@ public class RepeatedAStar{
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
 						}
+						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
+							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
+						}
 					}
 				}
 				if(plannedRoute.get(i).getBlocked()){
 					blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()] = 1;
+					for(int j = 0; j < i; j++){
+						previousRoute.add(plannedRoute.get(j));
+					}
 					ranIntoBlock = true;
 					break;
+				}
+			}
+			if(!previousRoute.isEmpty()){
+				count++;
+				for(Node node : previousRoute){
+					System.out.println("Previous Node(X , Y): " + node.getX() + " , " + node.getY());
+				}
+				if(count == 2){
+					//return null;
 				}
 			}
 			if(ranIntoBlock == false){
@@ -446,7 +475,9 @@ public class RepeatedAStar{
 			}
 			else {
 				//System.out.println("blah2");
-				plannedRoute = planning(plannedRoute.get(i-1),isForward, blocked);
+				System.out.println("Passed in Node(X , Y): " + plannedRoute.get(i-1).getX() + " , " + plannedRoute.get(i-1).getY());
+				Node newNode = new Node(plannedRoute.get(i-1).getX(),plannedRoute.get(i-1).getY(),0,0);
+				plannedRoute = planning(newNode,isForward, blocked);
 			}
 			ranIntoBlock = false;
 			//System.out.println("After second planned route");
@@ -454,7 +485,10 @@ public class RepeatedAStar{
 				return null;
 			}
 		}
-		return plannedRoute;
+		for(Node node : plannedRoute){
+			previousRoute.add(node);
+		}
+		return previousRoute;
 	}
 	public static int computeGOrH(Node start, Node dest){
 		int result = Math.abs(dest.getX() - start.getX()) + Math.abs(dest.getY() - start.getY());

@@ -13,6 +13,10 @@ public class Driver {
 		}else{
 			System.out.println("not null");
 		}*/
+		if(al == null){
+			System.out.println("This puzzle is impossible!");
+			return;
+		}
 		for(Node node : al){
 			System.out.println(node.getX() + " , " + node.getY());
 		}
