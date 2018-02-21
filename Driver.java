@@ -4,15 +4,7 @@ public class Driver {
 	public static void main(String[] args){
 		Grid grid = new Grid();
 		grid.printGrid(null);
-		System.out.println("begin exec");
-		ArrayList<Node> al = RepeatedAStar.executePath(true, grid);
-		
-		System.out.println("end exec");
-		/*if(al == null){
-			System.out.println("Impossible puzzle!!");
-		}else{
-			System.out.println("not null");
-		}*/
+		ArrayList<Node> al = RepeatedAStar.executePath(false, grid);
 		if(al == null){
 			System.out.println("This puzzle is impossible!");
 			return;
@@ -20,7 +12,7 @@ public class Driver {
 		for(Node node : al){
 			System.out.println(node.getX() + " , " + node.getY());
 		}
-		//grid.printGrid(al);
+		grid.printGrid(al);
 		
 		
 	}

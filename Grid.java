@@ -29,6 +29,7 @@ public class Grid {
 	}
 	
 	public void printGrid(ArrayList<Node> path){
+		boolean exists = false;
 		if(path == null){
 			for(int j = 0; j < 10; j++){
 				System.out.println();
@@ -39,17 +40,35 @@ public class Grid {
 						System.out.print("U ");
 				}
 			}
+			System.out.println();
 		}else {
-			int index = 0;
-			for(int i = 0; i < 10; i++){
-				System.out.println();
-				for(int j = 0; j < 10; j++){
-					if(path.get(index).getX() == i && path.get(index).getY() == j)
-						System.out.print("X");
-					else
-						System.out.println("-");
+			for(int h = 0; h < path.size()-1; h++){
+				for(int k = h+1; k < path.size(); k++){
+					if(path.get(h).getX() == path.get(k).getX() && path.get(h).getY() == path.get(k).getY()){
+						path.remove(k);
+					}
 				}
 			}
+			int index = 0;
+			for(int j = 0; j < 10; j++){
+				System.out.println();
+				for(int i = 0; i < 10; i++){
+					for(index = 0; index < path.size(); index++){
+						if(path.get(index).getX() == i && path.get(index).getY() == j){
+							exists = true;
+							break;
+						}	
+					}
+					if(exists){
+						System.out.print("X");
+					}
+					else {
+						System.out.print("-");
+					}
+					exists = false;
+				}
+			}
+			System.out.println();
 		}
 	}
 }
