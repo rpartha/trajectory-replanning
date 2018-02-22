@@ -171,7 +171,7 @@ public class RepeatedAStar{
 				}
 				//System.out.println("Neighbors size: " + neighbors.size());
 				for(int i = 0; i < neighbors.size(); i++){	
-					System.out.println("Neighbor(X , Y): " + neighbors.get(i).getX() + " , " + neighbors.get(i).getY());
+					//System.out.println("Neighbor(X , Y): " + neighbors.get(i).getX() + " , " + neighbors.get(i).getY());
 					inClosedList = false;
 					isBlocked = false;
 					neighbors.get(i).setG(computeGOrH(start, neighbors.get(i)));
@@ -190,7 +190,7 @@ public class RepeatedAStar{
 						}
 					}*/
 					if(blocked[neighbors.get(i).getX()][neighbors.get(i).getY()] == 1){
-						System.out.println("Blocked Nodes(X , Y): " + neighbors.get(i).getX() + " , " + neighbors.get(i).getY());
+						//System.out.println("Blocked Nodes(X , Y): " + neighbors.get(i).getX() + " , " + neighbors.get(i).getY());
 						isBlocked = true;
 					}
 					/*if(inClosedList || isBlocked){
@@ -220,18 +220,19 @@ public class RepeatedAStar{
 					temp = temp.getChild();
 				}
 				Node heapRoot = new Node(openList.heap.get(0).getX(),openList.heap.get(0).getY(),openList.heap.get(0).getG(),openList.heap.get(0).getH());
-				if((current.getX() == heapRoot.getX()+1 && current.getY() == heapRoot.getY()) || (current.getX() == heapRoot.getX() && current.getY() == heapRoot.getY()+1) || 
-				(current.getX() == heapRoot.getX()-1 && current.getY() == heapRoot.getY()) || (current.getX() == heapRoot.getX() && current.getY() == heapRoot.getY()-1)){
+				if((temp.getX() == heapRoot.getX()+1 && temp.getY() == heapRoot.getY()) || (temp.getX() == heapRoot.getX() && temp.getY() == heapRoot.getY()+1) || 
+				(temp.getX() == heapRoot.getX()-1 && temp.getY() == heapRoot.getY()) || (temp.getX() == heapRoot.getX() && temp.getY() == heapRoot.getY()-1)){
 					//System.out.println("HeapRoot(X , Y): " + heapRoot.getX() + " , " + heapRoot.getY());
-					temp.setChild(heapRoot);
+					//temp.setChild(heapRoot);
 				}
+				temp.setChild(heapRoot);
 				current.setX(openList.heap.get(0).getX());
 				current.setY(openList.heap.get(0).getY());
 				start = openList.delete();
 				start.setG(0);
 				neighbors.clear();
 			}
-			System.out.println();
+			//System.out.println();
 			temp = root;
 			while(temp.getChild() != null){
 				plannedRoute.add(temp);
@@ -241,11 +242,11 @@ public class RepeatedAStar{
 			/*for(Node node : blockedNodes){
 				System.out.println("Blocked Node(X , Y): " + node.getX() + " , " + node.getY());
 			}*/
-			System.out.println();
+			//System.out.println();
 			for(Node node : plannedRoute){
-				System.out.println("Planned Route(X , Y): " + node.getX() + " , " + node.getY());
+				//System.out.println("Planned Route(X , Y): " + node.getX() + " , " + node.getY());
 			}
-			System.out.println();
+			//System.out.println();
 		}
 		else {
 			while(current.getX() != 0 || current.getY() != 0){
@@ -669,14 +670,14 @@ public class RepeatedAStar{
 				break;
 			}
 			for(Node node : previousRoute){
-				System.out.println("Previous Route(X , Y): " + node.getX() + " , " + node.getY());
+				//System.out.println("Previous Route(X , Y): " + node.getX() + " , " + node.getY());
 			}
-			System.out.println();
+			//System.out.println();
 			count++;
 			if(count == 20){
 				//return null;
 			}
-			System.out.println("blah");
+			//System.out.println("blah");
 			Node newNode = new Node(plannedRoute.get(i-1).getX(),plannedRoute.get(i-1).getY(),0,0);
 			plannedRoute = planning(newNode,isForward, blocked);
 			ranIntoBlock = false;
