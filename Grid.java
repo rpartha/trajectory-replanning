@@ -6,13 +6,13 @@ public class Grid {
 	Random random = new Random();
 	Node[][] array;
 	public Grid(){
-		array = new Node[10][10];
-		for(int j = 0; j < 10; j++){
-			for(int i = 0; i < 10; i++){
+		array = new Node[101][101];
+		for(int j = 0; j < 101; j++){
+			for(int i = 0; i < 101; i++){
 				if(i == 0 && j ==0){
 					array[i][j] = new Node(i, j, false);
 				}
-				else if(i == 9 && j == 9){
+				else if(i == 100 && j == 100){
 					array[i][j] = new Node(i, j, false);
 				}
 				else {
@@ -31,9 +31,9 @@ public class Grid {
 	public void printGrid(ArrayList<Node> path){
 		boolean exists = false;
 		if(path == null){
-			for(int j = 0; j < 10; j++){
+			for(int j = 0; j < 101; j++){
 				System.out.println();
-				for(int i = 0; i < 10; i++){
+				for(int i = 0; i < 101; i++){
 					if(array[i][j].getBlocked())
 						System.out.print("B ");
 					else
@@ -42,19 +42,19 @@ public class Grid {
 			}
 			System.out.println();
 		}else {
-			/*for(int h = 0; h < path.size()-1; h++){
+			for(int h = 0; h < path.size()-1; h++){
 				for(int k = h+1; k < path.size(); k++){
 					if(path.get(h).getX() == path.get(k).getX() && path.get(h).getY() == path.get(k).getY()){
 						path.remove(k);
 					}
 				}
-			}*/
+			}
 			int index = 0;
 			int count = 0;
 			for(index = 0; index < path.size(); index++){
 				System.out.println();
-				for(int j = 0; j < 10; j++){
-					for(int i = 0; i < 10; i++){
+				for(int j = 0; j < 101; j++){
+					for(int i = 0; i < 101; i++){
 						for(int k = 0; k <= index; k++){
 							if(path.get(k).getX() == i && path.get(k).getY() == j){
 								exists = true;

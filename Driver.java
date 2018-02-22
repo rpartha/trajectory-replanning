@@ -9,9 +9,9 @@ public class Driver {
 			System.out.println("This puzzle is impossible!");
 			return;
 		}
-		for(Node node : al){
+		/*for(Node node : al){
 			System.out.println(node.getX() + " , " + node.getY());
-		}
+		}*/
 		grid.printGrid(al);
 		
 		
