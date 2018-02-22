@@ -8,7 +8,7 @@ public class RepeatedAStar{
 
 	}
 
-	public static ArrayList<Node> planning(Node current, boolean isForward, ArrayList<Node> blockedNodes){
+	public static ArrayList<Node> planning(Node current, boolean isForward, int[][] blocked){
 		if(!isForward && current.getX() == 0 && current.getY() == 0){
 			current.setX(9);	
 			current.setY(9);
@@ -33,100 +33,145 @@ public class RepeatedAStar{
 		ArrayList<Node> neighbors = new ArrayList<Node>();
 		boolean inClosedList = false;
 		MinHeap openList = new MinHeap();
+		openList.heap.clear();
 		if(isForward){
 			while(current.getX() != 9 || current.getY() != 9){
 				duplicate = false;
 				if(current.getX() -1 < 0 && current.getY()-1 < 0){
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					int value1 = current.getX();
+					int value2 = current.getY()+1;
+					int value3 = current.getX()+1;
+					int value4 = current.getY();
+					bottomNeighbor.setX(value1);
+					bottomNeighbor.setY(value2);
 					neighbors.add(bottomNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value4);
 					neighbors.add(rightNeighbor);							
 				}
 				else if(current.getX()+1 > 9 && current.getY() + 1 > 9){
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+					int value1 = current.getX();
+					int value2 = current.getY()-1;
+					int value3 = current.getX()-1;
+					int value4 = current.getY();
+					topNeighbor.setX(value1);
+					topNeighbor.setY(value2);
 					neighbors.add(topNeighbor);
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+					leftNeighbor.setX(value3);
+					leftNeighbor.setY(value4);
 					neighbors.add(leftNeighbor);
 				}
 				else if(current.getX()-1 < 0 && current.getY()+1 > 9){
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+					int value1 = current.getX();
+					int value2 = current.getY()-1;
+					int value3 = current.getX()+1;
+					int value4 = current.getY();
+					topNeighbor.setX(value1);
+					topNeighbor.setY(value2);
 					neighbors.add(topNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value4);
 					neighbors.add(rightNeighbor);
 				}
 				else if(current.getX()+1 > 9 && current.getY()-1 < 0){
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+					int value1 = current.getX();
+					int value2 = current.getY()+1;
+					int value3 = current.getX()-1;
+					int value4 = current.getY();
+					leftNeighbor.setX(value3);
+					leftNeighbor.setY(value4);
 					neighbors.add(leftNeighbor);
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					bottomNeighbor.setX(value1);
+					bottomNeighbor.setY(value2);
 					neighbors.add(bottomNeighbor);
 				}
-				else if(current.getX()-1 < 0 && current.getY()-1 >= 0){
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+				else if(current.getX() == 0){
+					int value1 = current.getX();
+					int value2 = current.getY()-1;
+					int value3 = current.getX()+1;
+					int value4 = current.getY();
+					int value5 = current.getY()+1;
+					topNeighbor.setX(value1);
+					topNeighbor.setY(value2);
 					neighbors.add(topNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value4);
 					neighbors.add(rightNeighbor);
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					bottomNeighbor.setX(value1);
+					bottomNeighbor.setY(value5);
 					neighbors.add(bottomNeighbor);
 				}
-				else if(current.getX()-1 >= 0 && current.getY()-1 < 0){
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+				else if(current.getY() == 0){
+					int value1 = current.getX()-1;
+					int value2 = current.getY();
+					int value3 = current.getX()+1;
+					int value4 = current.getX();
+					int value5 = current.getY()+1;
+					leftNeighbor.setX(value1);
+					leftNeighbor.setY(value2);
 					neighbors.add(leftNeighbor);
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					bottomNeighbor.setX(value4);
+					bottomNeighbor.setY(value5);
 					neighbors.add(bottomNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value2);
 					neighbors.add(rightNeighbor);
 				}
-				else if(current.getX()+1 > 9 && current.getY() + 1 <= 9){
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+				else if(current.getX() == 9){
+					int value1 = current.getX();
+					int value2 = current.getY()-1;
+					int value3 = current.getX()-1;
+					int value4 = current.getY();
+					int value5 = current.getY()+1;
+					topNeighbor.setX(value1);
+					topNeighbor.setY(value2);
 					neighbors.add(topNeighbor);
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+					leftNeighbor.setX(value3);
+					leftNeighbor.setY(value4);
 					neighbors.add(leftNeighbor);
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					bottomNeighbor.setX(value1);
+					bottomNeighbor.setY(value5);
 					neighbors.add(bottomNeighbor);
 				}
-				else if(current.getX()+1 <=9 && current.getY()+1 > 9){
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+				else if(current.getY() == 9){
+					int value1 = current.getX()-1;
+					int value2 = current.getY();
+					int value3 = current.getX()+1;
+					int value4 = current.getX();
+					int value5 = current.getY()-1;
+					leftNeighbor.setX(value1);
+					leftNeighbor.setY(value2);
 					neighbors.add(leftNeighbor);
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+					topNeighbor.setX(value4);
+					topNeighbor.setY(value5);
 					neighbors.add(topNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value2);
 					neighbors.add(rightNeighbor);
 				}
 				else {
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+					int value1 = current.getX();
+					int value2 = current.getY()-1;
+					int value3 = current.getX()+1;
+					int value4 = current.getY();
+					int value5 = current.getY()+1;
+					int value6 = current.getX()-1;
+					leftNeighbor.setX(value6);
+					leftNeighbor.setY(value4);
 					neighbors.add(leftNeighbor);
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+					topNeighbor.setX(value1);
+					topNeighbor.setY(value2);
 					neighbors.add(topNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value4);
 					neighbors.add(rightNeighbor);
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					bottomNeighbor.setX(value1);
+					bottomNeighbor.setY(value5);
 					neighbors.add(bottomNeighbor);
 				}
+				//System.out.println("Neighbors size: " + neighbors.size());
 				for(int i = 0; i < neighbors.size(); i++){	
+					System.out.println("Neighbor(X , Y): " + neighbors.get(i).getX() + " , " + neighbors.get(i).getY());
 					inClosedList = false;
 					isBlocked = false;
 					neighbors.get(i).setG(computeGOrH(start, neighbors.get(i)));
@@ -138,21 +183,27 @@ public class RepeatedAStar{
 							break;
 						}	
 					}
-					for(Node blockedNode : blockedNodes){
+					/*for(Node blockedNode : blockedNodes){
 						if(neighbors.get(i).getX() == blockedNode.getX() && neighbors.get(i).getY() == blockedNode.getY()){
 							isBlocked = true;
 							break;
 						}
-					}
-					/*if(blocked[neighbors.get(i).getX()][neighbors.get(i).getY()] == 1){
-						//System.out.println("Blocked Nodes(X , Y): " + neighbors.get(i).getX() + " , " + neighbors.get(i).getY());
+					}*/
+					if(blocked[neighbors.get(i).getX()][neighbors.get(i).getY()] == 1){
+						System.out.println("Blocked Nodes(X , Y): " + neighbors.get(i).getX() + " , " + neighbors.get(i).getY());
 						isBlocked = true;
+					}
+					/*if(inClosedList || isBlocked){
+						continue;
 					}*/
 					if(inClosedList || isBlocked){
 						continue;
 					}
-					openList.insert(neighbors.get(i));
-				}		
+					Node node = new Node(neighbors.get(i).getX(),neighbors.get(i).getY(),neighbors.get(i).getG(),neighbors.get(i).getH());
+					node.setF(neighbors.get(i).getF());
+					openList.insert(node);
+				}
+				//System.out.println();
 				if(openList.heap.size() == 0){
 					return null;
 				}
@@ -177,19 +228,22 @@ public class RepeatedAStar{
 				current.setX(openList.heap.get(0).getX());
 				current.setY(openList.heap.get(0).getY());
 				start = openList.delete();
+				start.setG(0);
 				neighbors.clear();
 			}
+			System.out.println();
 			temp = root;
 			while(temp.getChild() != null){
 				plannedRoute.add(temp);
 				temp = temp.getChild();
 			}
 			plannedRoute.add(temp);
-			for(Node node : blockedNodes){
+			/*for(Node node : blockedNodes){
 				System.out.println("Blocked Node(X , Y): " + node.getX() + " , " + node.getY());
-			}
+			}*/
+			System.out.println();
 			for(Node node : plannedRoute){
-				//System.out.println("Planned Route(X , Y): " + node.getX() + " , " + node.getY());
+				System.out.println("Planned Route(X , Y): " + node.getX() + " , " + node.getY());
 			}
 			System.out.println();
 		}
@@ -343,7 +397,7 @@ public class RepeatedAStar{
 	public static ArrayList<Node> executePath(boolean isForward, Grid grid){
 		int count = 0;
 		ArrayList<Node> previousRoute = new ArrayList<Node>();
-		ArrayList<Node> blockedNodes = new ArrayList<Node>();
+		//ArrayList<Node> blockedNodes = new ArrayList<Node>();
 		boolean ranIntoBlock = false;
 		int[][] blocked = new int[10][10]; //1 is blocked, 0 is unblocked
 		for(int i = 0; i < 10; i++){
@@ -356,7 +410,7 @@ public class RepeatedAStar{
 			current.setX(9);
 			current.setY(9);
 		}
-		ArrayList<Node> plannedRoute = planning(current, isForward, blockedNodes);
+		ArrayList<Node> plannedRoute = planning(current, isForward, blocked);
 		if(plannedRoute == null){
 			return null;
 		}
@@ -371,14 +425,14 @@ public class RepeatedAStar{
 		}
 		
 		int i = 0;
-		for(int a = 0; a < 10; a++){
+		/*for(int a = 0; a < 10; a++){
 			for(int b = 0; b < 10; b++){
 				if(grid.array[a][b].getBlocked()){
 					Node node = new Node(a,b,0,0);
 					blockedNodes.add(node);
 				}
 			}
-		}
+		}*/
 		//Actually traversing the grid
 		while(true){
 			i = 0;
@@ -395,14 +449,14 @@ public class RepeatedAStar{
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
 							int value1 = plannedRoute.get(i).getX();
 							int value2 = plannedRoute.get(i).getY()+1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 					}
 					else if(plannedRoute.get(i).getX() == 9 && plannedRoute.get(i).getY() == 9){
@@ -411,14 +465,14 @@ public class RepeatedAStar{
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
 							int value1 = plannedRoute.get(i).getX();
 							int value2 = plannedRoute.get(i).getY()-1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 					}
 					else if(plannedRoute.get(i).getX() == 0 && plannedRoute.get(i).getY() == 9){
@@ -427,14 +481,14 @@ public class RepeatedAStar{
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
 							int value1 = plannedRoute.get(i).getX();
 							int value2 = plannedRoute.get(i).getY()-1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 					}
 					else if(plannedRoute.get(i).getX() == 9 && plannedRoute.get(i).getY() == 0){
@@ -443,14 +497,14 @@ public class RepeatedAStar{
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
 							int value1 = plannedRoute.get(i).getX();
 							int value2 = plannedRoute.get(i).getY()+1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 					}
 					else if(plannedRoute.get(i).getX()-1 < 0 && plannedRoute.get(i).getY()-1 >= 0){
@@ -459,21 +513,21 @@ public class RepeatedAStar{
 							int value2 = plannedRoute.get(i).getY()-1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
 							int value1 = plannedRoute.get(i).getX()+1;
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
 							int value1 = plannedRoute.get(i).getX();
 							int value2 = plannedRoute.get(i).getY()+1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 					}
 					else if(plannedRoute.get(i).getX()-1 >= 0 && plannedRoute.get(i).getY()-1 < 0){
@@ -482,44 +536,44 @@ public class RepeatedAStar{
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
 							int value1 = plannedRoute.get(i).getX()+1;
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
 							int value1 = plannedRoute.get(i).getX();
 							int value2 = plannedRoute.get(i).getY()+1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 					}
 					else if(plannedRoute.get(i).getX()+1 > 9 && plannedRoute.get(i).getY() + 1 <= 9){
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
-							int value1 = plannedRoute.get(i).getX()+1;
-							int value2 = plannedRoute.get(i).getY();
+							int value1 = plannedRoute.get(i).getX();
+							int value2 = plannedRoute.get(i).getY()-1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
 							int value1 = plannedRoute.get(i).getX();
 							int value2 = plannedRoute.get(i).getY()+1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()].getBlocked()){
 							int value1 = plannedRoute.get(i).getX()-1;
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 					}
 					else if(plannedRoute.get(i).getX()+1 <=9 && plannedRoute.get(i).getY()+1 > 9){
@@ -528,21 +582,21 @@ public class RepeatedAStar{
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
 							int value1 = plannedRoute.get(i).getX()+1;
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
 							int value1 = plannedRoute.get(i).getX();
 							int value2 = plannedRoute.get(i).getY()-1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 					}
 					else {
@@ -551,35 +605,35 @@ public class RepeatedAStar{
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()-1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()].getBlocked()){
 							int value1 = plannedRoute.get(i).getX()+1;
 							int value2 = plannedRoute.get(i).getY();
 							blocked[plannedRoute.get(i).getX()+1][plannedRoute.get(i).getY()] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1].getBlocked()){
 							int value1 = plannedRoute.get(i).getX();
 							int value2 = plannedRoute.get(i).getY()+1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()+1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 						if(grid.array[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1].getBlocked()){
 							int value1 = plannedRoute.get(i).getX();
 							int value2 = plannedRoute.get(i).getY()-1;
 							blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()-1] = 1;
 							Node node = new Node(value1,value2,0,0);
-							blockedNodes.add(node);
+							//blockedNodes.add(node);
 						}
 					}
 				}
 				if(plannedRoute.get(i).getBlocked()){
 					blocked[plannedRoute.get(i).getX()][plannedRoute.get(i).getY()] = 1;
 					Node node = new Node(plannedRoute.get(i).getX(),plannedRoute.get(i).getY(),0,0);
-					blockedNodes.add(node);
+					//blockedNodes.add(node);
 					for(int j = 0; j < i; j++){
 						previousRoute.add(plannedRoute.get(j));
 					}
@@ -615,14 +669,16 @@ public class RepeatedAStar{
 				break;
 			}
 			for(Node node : previousRoute){
-				//System.out.println("Previous Route(X , Y): " + node.getX() + " , " + node.getY());
+				System.out.println("Previous Route(X , Y): " + node.getX() + " , " + node.getY());
 			}
+			System.out.println();
 			count++;
-			if(count == 10){
-				return null;
+			if(count == 20){
+				//return null;
 			}
+			System.out.println("blah");
 			Node newNode = new Node(plannedRoute.get(i-1).getX(),plannedRoute.get(i-1).getY(),0,0);
-			plannedRoute = planning(newNode,isForward, blockedNodes);
+			plannedRoute = planning(newNode,isForward, blocked);
 			ranIntoBlock = false;
 			if(plannedRoute == null){
 				return null;

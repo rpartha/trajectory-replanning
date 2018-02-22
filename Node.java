@@ -12,7 +12,7 @@ public class Node implements Comparable<Node>{
 
     //private ArrayList<Node> openList; //neighbors
 
-    public Node(int x, int y, int g, int h){
+    public Node(final int x, final int y, int g, int h){
         this.parent = null;
         this.child = null;
         this.x = x;
