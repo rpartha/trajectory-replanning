@@ -252,96 +252,140 @@ public class RepeatedAStar{
 			while(current.getX() != 0 || current.getY() != 0){
 				duplicate = false;
 				if(current.getX() -1 < 0 && current.getY()-1 < 0){
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					int value1 = current.getX();
+					int value2 = current.getY()+1;
+					int value3 = current.getX()+1;
+					int value4 = current.getY();
+					bottomNeighbor.setX(value1);
+					bottomNeighbor.setY(value2);
 					neighbors.add(bottomNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value4);
 					neighbors.add(rightNeighbor);							
 				}
 				else if(current.getX()+1 > 9 && current.getY() + 1 > 9){
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+					int value1 = current.getX();
+					int value2 = current.getY()-1;
+					int value3 = current.getX()-1;
+					int value4 = current.getY();
+					topNeighbor.setX(value1);
+					topNeighbor.setY(value2);
 					neighbors.add(topNeighbor);
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+					leftNeighbor.setX(value3);
+					leftNeighbor.setY(value4);
 					neighbors.add(leftNeighbor);
 				}
 				else if(current.getX()-1 < 0 && current.getY()+1 > 9){
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+					int value1 = current.getX();
+					int value2 = current.getY()-1;
+					int value3 = current.getX()+1;
+					int value4 = current.getY();
+					topNeighbor.setX(value1);
+					topNeighbor.setY(value2);
 					neighbors.add(topNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value4);
 					neighbors.add(rightNeighbor);
 				}
 				else if(current.getX()+1 > 9 && current.getY()-1 < 0){
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+					int value1 = current.getX();
+					int value2 = current.getY()+1;
+					int value3 = current.getX()-1;
+					int value4 = current.getY();
+					leftNeighbor.setX(value3);
+					leftNeighbor.setY(value4);
 					neighbors.add(leftNeighbor);
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					bottomNeighbor.setX(value1);
+					bottomNeighbor.setY(value2);
 					neighbors.add(bottomNeighbor);
 				}
-				else if(current.getX()-1 < 0){
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+				else if(current.getX() == 0){
+					int value1 = current.getX();
+					int value2 = current.getY()-1;
+					int value3 = current.getX()+1;
+					int value4 = current.getY();
+					int value5 = current.getY()+1;
+					topNeighbor.setX(value1);
+					topNeighbor.setY(value2);
 					neighbors.add(topNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value4);
 					neighbors.add(rightNeighbor);
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					bottomNeighbor.setX(value1);
+					bottomNeighbor.setY(value5);
 					neighbors.add(bottomNeighbor);
 				}
-				else if(current.getY()-1 < 0){
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+				else if(current.getY() == 0){
+					int value1 = current.getX()-1;
+					int value2 = current.getY();
+					int value3 = current.getX()+1;
+					int value4 = current.getX();
+					int value5 = current.getY()+1;
+					leftNeighbor.setX(value1);
+					leftNeighbor.setY(value2);
 					neighbors.add(leftNeighbor);
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					bottomNeighbor.setX(value4);
+					bottomNeighbor.setY(value5);
 					neighbors.add(bottomNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value2);
 					neighbors.add(rightNeighbor);
 				}
-				else if(current.getX()+1 > 9){
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+				else if(current.getX() == 9){
+					int value1 = current.getX();
+					int value2 = current.getY()-1;
+					int value3 = current.getX()-1;
+					int value4 = current.getY();
+					int value5 = current.getY()+1;
+					topNeighbor.setX(value1);
+					topNeighbor.setY(value2);
 					neighbors.add(topNeighbor);
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+					leftNeighbor.setX(value3);
+					leftNeighbor.setY(value4);
 					neighbors.add(leftNeighbor);
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					bottomNeighbor.setX(value1);
+					bottomNeighbor.setY(value5);
 					neighbors.add(bottomNeighbor);
 				}
-				else if(current.getY()+1 > 9){
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+				else if(current.getY() == 9){
+					int value1 = current.getX()-1;
+					int value2 = current.getY();
+					int value3 = current.getX()+1;
+					int value4 = current.getX();
+					int value5 = current.getY()-1;
+					leftNeighbor.setX(value1);
+					leftNeighbor.setY(value2);
 					neighbors.add(leftNeighbor);
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+					topNeighbor.setX(value4);
+					topNeighbor.setY(value5);
 					neighbors.add(topNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value2);
 					neighbors.add(rightNeighbor);
 				}
 				else {
-					leftNeighbor.setX(current.getX()-1);
-					leftNeighbor.setY(current.getY());
+					int value1 = current.getX();
+					int value2 = current.getY()-1;
+					int value3 = current.getX()+1;
+					int value4 = current.getY();
+					int value5 = current.getY()+1;
+					int value6 = current.getX()-1;
+					leftNeighbor.setX(value6);
+					leftNeighbor.setY(value4);
 					neighbors.add(leftNeighbor);
-					topNeighbor.setX(current.getX());
-					topNeighbor.setY(current.getY()-1);
+					topNeighbor.setX(value1);
+					topNeighbor.setY(value2);
 					neighbors.add(topNeighbor);
-					rightNeighbor.setX(current.getX()+1);
-					rightNeighbor.setY(current.getY());
+					rightNeighbor.setX(value3);
+					rightNeighbor.setY(value4);
 					neighbors.add(rightNeighbor);
-					bottomNeighbor.setX(current.getX());
-					bottomNeighbor.setY(current.getY()+1);
+					bottomNeighbor.setX(value1);
+					bottomNeighbor.setY(value5);
 					neighbors.add(bottomNeighbor);
 				}
+				//System.out.println("Neighbors size: " + neighbors.size());
 				for(int i = 0; i < neighbors.size(); i++){	
+					//System.out.println("Neighbor(X , Y): " + neighbors.get(i).getX() + " , " + neighbors.get(i).getY());
 					inClosedList = false;
 					isBlocked = false;
 					neighbors.get(i).setG(computeGOrH(start, neighbors.get(i)));
@@ -353,13 +397,27 @@ public class RepeatedAStar{
 							break;
 						}	
 					}
-					/*if(blocked[neighbors.get(i).getX()][neighbors.get(i).getY()] == 1){
-						isBlocked = true;
+					/*for(Node blockedNode : blockedNodes){
+						if(neighbors.get(i).getX() == blockedNode.getX() && neighbors.get(i).getY() == blockedNode.getY()){
+							isBlocked = true;
+							break;
+						}
 					}*/
-					if(!inClosedList && !isBlocked){
-						openList.insert(neighbors.get(i));
+					if(blocked[neighbors.get(i).getX()][neighbors.get(i).getY()] == 1){
+						//System.out.println("Blocked Nodes(X , Y): " + neighbors.get(i).getX() + " , " + neighbors.get(i).getY());
+						isBlocked = true;
 					}
-				}		
+					/*if(inClosedList || isBlocked){
+						continue;
+					}*/
+					if(inClosedList || isBlocked){
+						continue;
+					}
+					Node node = new Node(neighbors.get(i).getX(),neighbors.get(i).getY(),neighbors.get(i).getG(),neighbors.get(i).getH());
+					node.setF(neighbors.get(i).getF());
+					openList.insert(node);
+				}
+				//System.out.println();
 				if(openList.heap.size() == 0){
 					return null;
 				}
@@ -376,21 +434,33 @@ public class RepeatedAStar{
 					temp = temp.getChild();
 				}
 				Node heapRoot = new Node(openList.heap.get(0).getX(),openList.heap.get(0).getY(),openList.heap.get(0).getG(),openList.heap.get(0).getH());
-				if((newNode.getX() == heapRoot.getX()+1 && newNode.getY() == heapRoot.getY()) || (newNode.getX() == heapRoot.getX() && newNode.getY() == heapRoot.getY()+1) || 
-				(newNode.getX() == heapRoot.getX()-1 && newNode.getY() == heapRoot.getY()) || (newNode.getX() == heapRoot.getX() && newNode.getY() == heapRoot.getY()-1)){
-					temp.setChild(heapRoot);
+				if((temp.getX() == heapRoot.getX()+1 && temp.getY() == heapRoot.getY()) || (temp.getX() == heapRoot.getX() && temp.getY() == heapRoot.getY()+1) || 
+				(temp.getX() == heapRoot.getX()-1 && temp.getY() == heapRoot.getY()) || (temp.getX() == heapRoot.getX() && temp.getY() == heapRoot.getY()-1)){
+					//System.out.println("HeapRoot(X , Y): " + heapRoot.getX() + " , " + heapRoot.getY());
+					//temp.setChild(heapRoot);
 				}
+				temp.setChild(heapRoot);
 				current.setX(openList.heap.get(0).getX());
 				current.setY(openList.heap.get(0).getY());
 				start = openList.delete();
+				start.setG(0);
 				neighbors.clear();
 			}
+			//System.out.println();
 			temp = root;
 			while(temp.getChild() != null){
 				plannedRoute.add(temp);
 				temp = temp.getChild();
 			}
 			plannedRoute.add(temp);
+			/*for(Node node : blockedNodes){
+				System.out.println("Blocked Node(X , Y): " + node.getX() + " , " + node.getY());
+			}*/
+			//System.out.println();
+			for(Node node : plannedRoute){
+				//System.out.println("Planned Route(X , Y): " + node.getX() + " , " + node.getY());
+			}
+			//System.out.println();
 		}
 		return plannedRoute;
 	}
