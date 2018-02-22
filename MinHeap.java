@@ -114,9 +114,9 @@ public class MinHeap{
 		Node node3 = new Node(1,2,0,3);
 		Node node4 = new Node(0,0,0,1);
 		node1.setF(100);
-		node2.setF(1000);
-		node3.setF(10000);
-		node4.setF(2);
+		node2.setF(100);
+		node3.setF(100);
+		node4.setF(100);
 		
 		bh.insert(node1);
         bh.insert(node2);

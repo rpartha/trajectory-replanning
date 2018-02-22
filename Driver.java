@@ -4,7 +4,7 @@ public class Driver {
 	public static void main(String[] args){
 		Grid grid = new Grid();
 		grid.printGrid(null);
-		ArrayList<Node> al = RepeatedAStar.executePath(false, grid);
+		ArrayList<Node> al = RepeatedAStar.executePath(true, grid);
 		if(al == null){
 			System.out.println("This puzzle is impossible!");
 			return;
