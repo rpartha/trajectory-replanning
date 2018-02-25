@@ -42,7 +42,9 @@ public class Grid {
 		try{
 			String[][] map = new String[101][101];
 			//File file = new File();
-            BufferedReader br = new BufferedReader(new FileReader("C:/Users/tillu/Documents/Trajectory_Replanning/" + fname));
+            BufferedReader br = new BufferedReader(new FileReader(Grid.class.getClassLoader()
+																			 .getResource(fname).getPath()
+																			 .replaceAll("%20", " ")));
     
             for (int i = 0; i < 101; i++) {
               String line = br.readLine();
@@ -72,7 +74,7 @@ public class Grid {
 
 	public void writeToFile(Node[][] terrain, String fname){
 		try{
-			File file = new File("C:/Users/tillu/Documents/Trajectory_Replanning/" + fname);
+			File file = new File("./" + fname);
 
 			if(!file.exists()){
 				file.createNewFile();
